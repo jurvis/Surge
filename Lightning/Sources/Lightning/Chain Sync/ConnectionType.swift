@@ -8,6 +8,6 @@
 import Foundation
 
 public enum ConnectionType {
-    case regtest(RegtestConfig)
+    case regtest(BitcoinCoreRpcConfig)
     case testnet
 }

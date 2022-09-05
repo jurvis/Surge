@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct RegtestConfig {
+public struct BitcoinCoreRpcConfig {
     let rpcUsername: String
     let rpcPassword: String
     let rpcPort: UInt
