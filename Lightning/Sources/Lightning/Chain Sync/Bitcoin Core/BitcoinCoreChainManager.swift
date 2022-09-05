@@ -31,7 +31,7 @@ class BitcoinCoreChainManager {
             .eraseToAnyPublisher()
     }
     
-    init(rpcProtocol: RpcProtocol, host: String, port: Int, username: String, password: String) throws {
+    init(rpcProtocol: RpcProtocol, host: String, port: UInt, username: String, password: String) throws {
         guard let rpcUrl = URL(string: "\(rpcProtocol.rawValue)://\(username):\(password)@\(host):\(port)") else {
             throw ChainManagerError.invalidUrlString
         }
@@ -81,7 +81,6 @@ class BitcoinCoreChainManager {
         return await self.monitoringTracker.startTracking()
     }
 }
-
 
 // MARK: Helper Functions
 extension BitcoinCoreChainManager {
@@ -207,6 +206,17 @@ extension BitcoinCoreChainManager {
         }
 
         return poppedBlock
+    }
+}
+
+// MARK: Common ChainManager Functions
+extension BitcoinCoreChainManager: RpcChainManager {
+    func submitTransaction(transaction: [UInt8]) async throws -> String {
+        let txHex = bytesToHexString(bytes: transaction)
+        let response = try await self.callRpcMethod(method: "sendrawtransaction", params: [txHex])
+        // returns the txid
+        let result = response["result"] as! String
+        return result
     }
 }
 
