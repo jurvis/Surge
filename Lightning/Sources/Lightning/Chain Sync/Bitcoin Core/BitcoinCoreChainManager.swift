@@ -297,8 +297,8 @@ extension BitcoinCoreChainManager {
     }
     
     enum RpcProtocol: String {
-        case http = "http://"
-        case https = "https://"
+        case http = "http"
+        case https = "https"
     }
     
     enum ChainManagerError: Error {
