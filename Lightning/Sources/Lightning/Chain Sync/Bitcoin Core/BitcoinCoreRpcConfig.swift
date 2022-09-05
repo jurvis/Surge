@@ -12,4 +12,11 @@ public struct BitcoinCoreRpcConfig {
     let password: String
     let port: UInt
     let host: String
+    
+    public init(username: String, password: String, port: UInt, host: String) {
+        self.username = username
+        self.password = password
+        self.port = port
+        self.host = host
+    }
 }

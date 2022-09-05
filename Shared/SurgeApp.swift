@@ -9,10 +9,15 @@ import SwiftUI
 import Lightning
 
 @main
-struct SurgeApp: App {
+struct SurgeApp: App {    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear {
+                    Task {
+                        try await LightningNodeService.shared.start()
+                    }
+                }
         }
     }
 }

@@ -19,6 +19,10 @@
 		7571CBF528C5BEAB00529718 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7571CBCB28C5BEAB00529718 /* Assets.xcassets */; };
 		7571CBF628C5BEAB00529718 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7571CBCB28C5BEAB00529718 /* Assets.xcassets */; };
 		7571CC0D28C5C68C00529718 /* Lightning in Frameworks */ = {isa = PBXBuildFile; productRef = 7571CC0C28C5C68C00529718 /* Lightning */; };
+		75AA489A28C683EE0032A3DC /* LightningNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA489928C683EE0032A3DC /* LightningNodeService.swift */; };
+		75AA489B28C683EE0032A3DC /* LightningNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA489928C683EE0032A3DC /* LightningNodeService.swift */; };
+		75AA489E28C685A30032A3DC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 75AA489D28C685A30032A3DC /* CryptoSwift */; };
+		75AA48A028C685AA0032A3DC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 75AA489F28C685AA0032A3DC /* CryptoSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,7 @@
 		7571CBEF28C5BEAB00529718 /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		7571CC0A28C5C66300529718 /* Lightning */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Lightning; sourceTree = "<group>"; };
 		7571CC0B28C5C68700529718 /* Surge--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Surge--iOS--Info.plist"; sourceTree = "<group>"; };
+		75AA489928C683EE0032A3DC /* LightningNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightningNodeService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7571CC0D28C5C68C00529718 /* Lightning in Frameworks */,
+				75AA489E28C685A30032A3DC /* CryptoSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +75,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				755617CE28C5C6EF00831531 /* Lightning in Frameworks */,
+				75AA48A028C685AA0032A3DC /* CryptoSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +116,7 @@
 				7571CBC928C5BEAA00529718 /* SurgeApp.swift */,
 				7571CBCA28C5BEAA00529718 /* ContentView.swift */,
 				7571CBCB28C5BEAB00529718 /* Assets.xcassets */,
+				75AA489928C683EE0032A3DC /* LightningNodeService.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -183,6 +191,7 @@
 			name = "Surge (iOS)";
 			packageProductDependencies = (
 				7571CC0C28C5C68C00529718 /* Lightning */,
+				75AA489D28C685A30032A3DC /* CryptoSwift */,
 			);
 			productName = "Surge (iOS)";
 			productReference = 7571CBD028C5BEAB00529718 /* Surge.app */;
@@ -203,6 +212,7 @@
 			name = "Surge (macOS)";
 			packageProductDependencies = (
 				755617CD28C5C6EF00831531 /* Lightning */,
+				75AA489F28C685AA0032A3DC /* CryptoSwift */,
 			);
 			productName = "Surge (macOS)";
 			productReference = 7571CBD628C5BEAB00529718 /* Surge.app */;
@@ -279,6 +289,9 @@
 				Base,
 			);
 			mainGroup = 7571CBC328C5BEAA00529718;
+			packageReferences = (
+				75AA489C28C685A30032A3DC /* XCRemoteSwiftPackageReference "CryptoSwift" */,
+			);
 			productRefGroup = 7571CBD128C5BEAB00529718 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -330,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7571CBF328C5BEAB00529718 /* ContentView.swift in Sources */,
+				75AA489A28C683EE0032A3DC /* LightningNodeService.swift in Sources */,
 				7571CBF128C5BEAB00529718 /* SurgeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,6 +353,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7571CBF428C5BEAB00529718 /* ContentView.swift in Sources */,
+				75AA489B28C683EE0032A3DC /* LightningNodeService.swift in Sources */,
 				7571CBF228C5BEAB00529718 /* SurgeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -736,6 +751,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		75AA489C28C685A30032A3DC /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		755617CD28C5C6EF00831531 /* Lightning */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -744,6 +770,16 @@
 		7571CC0C28C5C68C00529718 /* Lightning */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Lightning;
+		};
+		75AA489D28C685A30032A3DC /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 75AA489C28C685A30032A3DC /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
+		};
+		75AA489F28C685AA0032A3DC /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 75AA489C28C685A30032A3DC /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

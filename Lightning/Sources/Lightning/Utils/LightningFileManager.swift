@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LightningFileManager {
+public struct LightningFileManager {
     let keysSeedPath = URL.keySeedDirectory
     let monitorPath = URL.channelMonitorsDirectory
     let managerPath = URL.channelManagerDirectory
