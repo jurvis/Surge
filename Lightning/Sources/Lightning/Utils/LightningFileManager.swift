@@ -59,6 +59,13 @@ struct LightningFileManager {
         return FileManager.default.fileExists(atPath: keysSeedPath.path)
     }
     
+    public var hasChannelMaterialAndNetworkGraph: Bool {
+        var isDir: ObjCBool = true
+        return FileManager.default.fileExists(atPath: managerPath.path) &&
+            FileManager.default.fileExists(atPath: monitorPath.path, isDirectory: &isDir) &&
+            FileManager.default.fileExists(atPath: networkGraphPath.path)
+    }
+    
     // MARK: - Public Write Interface
     public func persistGraph(graph: [UInt8]) -> Result<Void, PersistenceError> {
         do {
