@@ -228,6 +228,11 @@ extension BitcoinCoreChainManager {
         return result
     }
     
+    func getChaintipHash() async throws -> [UInt8] {
+        let blockHashHex = try await self.getChaintipHashHex()
+        return hexStringToBytes(hexString: blockHashHex)!
+    }
+    
     func getBlockHashHex(height: UInt32) async throws -> String {
         let response = try await self.callRpcMethod(method: "getblockhash", params: ["height": height])
         let result = response["result"] as! String
