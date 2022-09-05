@@ -13,6 +13,8 @@ public enum NodeError: Error {
     case keyInterfaceFailure
     case keySeedNotFound
     case alreadyRunning
+    case noChainManager
+    case channelMaterialNotFound
     
     public enum Channels: Error {
         case misuse

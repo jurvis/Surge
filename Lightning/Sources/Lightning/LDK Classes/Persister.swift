@@ -12,6 +12,11 @@ class Persister: LightningDevKit.Persister, ExtendedChannelManagerPersister {
     let fileManager = LightningFileManager()
     weak var tracker: PendingEventTracker?
     
+    init(eventTracker: PendingEventTracker? = nil) {
+        self.tracker = eventTracker
+        super.init()
+    }
+
     func handle_event(event: Event) {
         // Clone is necessary to avoid deallocation issues
         
