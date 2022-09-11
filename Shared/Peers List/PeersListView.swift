@@ -34,14 +34,34 @@ struct PeersListView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        print("Add a Peer")
-                    } label: {
-                        Image(systemName: "plus")
-                    }
+                    addPeerButton()
                 }
             }
-            
+            .sheet(item: $viewModel.sheetToShow) { sheet  in
+                switch sheet {
+                case .addPeer:
+                    AddPeerView()
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func addPeerButton() -> some View {
+        Button {
+            viewModel.showAddPeerScreen()
+        } label: {
+            HStack(spacing: 0) {
+                Image(systemName: "plus")
+                    .font(.system(size: 12, weight: .bold))
+                    
+                Text("Add")
+                    .font(.system(size: 12, weight: .bold))
+            }
+            .padding(.vertical, 4)
+            .padding(.horizontal, 8)
+            .foregroundColor(.white)
+            .background(Capsule(style: .circular))
         }
     }
 }
