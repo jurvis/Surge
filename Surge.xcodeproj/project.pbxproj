@@ -14,8 +14,8 @@
 		7571CBF028C5BEAB00529718 /* Tests_macOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7571CBEF28C5BEAB00529718 /* Tests_macOSLaunchTests.swift */; };
 		7571CBF128C5BEAB00529718 /* SurgeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7571CBC928C5BEAA00529718 /* SurgeApp.swift */; };
 		7571CBF228C5BEAB00529718 /* SurgeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7571CBC928C5BEAA00529718 /* SurgeApp.swift */; };
-		7571CBF328C5BEAB00529718 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7571CBCA28C5BEAA00529718 /* ContentView.swift */; };
-		7571CBF428C5BEAB00529718 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7571CBCA28C5BEAA00529718 /* ContentView.swift */; };
+		7571CBF328C5BEAB00529718 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7571CBCA28C5BEAA00529718 /* HomeView.swift */; };
+		7571CBF428C5BEAB00529718 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7571CBCA28C5BEAA00529718 /* HomeView.swift */; };
 		7571CBF528C5BEAB00529718 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7571CBCB28C5BEAB00529718 /* Assets.xcassets */; };
 		7571CBF628C5BEAB00529718 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7571CBCB28C5BEAB00529718 /* Assets.xcassets */; };
 		7571CC0D28C5C68C00529718 /* Lightning in Frameworks */ = {isa = PBXBuildFile; productRef = 7571CC0C28C5C68C00529718 /* Lightning */; };
@@ -23,6 +23,12 @@
 		75AA489B28C683EE0032A3DC /* LightningNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA489928C683EE0032A3DC /* LightningNodeService.swift */; };
 		75AA489E28C685A30032A3DC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 75AA489D28C685A30032A3DC /* CryptoSwift */; };
 		75AA48A028C685AA0032A3DC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 75AA489F28C685AA0032A3DC /* CryptoSwift */; };
+		75F3FBC628CD95A000FB6D61 /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FBC528CD95A000FB6D61 /* TransactionListView.swift */; };
+		75F3FBC728CD95A000FB6D61 /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FBC528CD95A000FB6D61 /* TransactionListView.swift */; };
+		75F3FBC928CD978E00FB6D61 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FBC828CD978E00FB6D61 /* HomeViewModel.swift */; };
+		75F3FBCA28CD978E00FB6D61 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FBC828CD978E00FB6D61 /* HomeViewModel.swift */; };
+		75F3FBCC28CD993E00FB6D61 /* PeersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FBCB28CD993E00FB6D61 /* PeersListView.swift */; };
+		75F3FBCD28CD993E00FB6D61 /* PeersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FBCB28CD993E00FB6D61 /* PeersListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +50,7 @@
 
 /* Begin PBXFileReference section */
 		7571CBC928C5BEAA00529718 /* SurgeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurgeApp.swift; sourceTree = "<group>"; };
-		7571CBCA28C5BEAA00529718 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7571CBCA28C5BEAA00529718 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7571CBCB28C5BEAB00529718 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7571CBD028C5BEAB00529718 /* Surge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Surge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7571CBD628C5BEAB00529718 /* Surge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Surge.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +64,9 @@
 		7571CC0A28C5C66300529718 /* Lightning */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Lightning; sourceTree = "<group>"; };
 		7571CC0B28C5C68700529718 /* Surge--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Surge--iOS--Info.plist"; sourceTree = "<group>"; };
 		75AA489928C683EE0032A3DC /* LightningNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightningNodeService.swift; sourceTree = "<group>"; };
+		75F3FBC528CD95A000FB6D61 /* TransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListView.swift; sourceTree = "<group>"; };
+		75F3FBC828CD978E00FB6D61 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		75F3FBCB28CD993E00FB6D61 /* PeersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeersListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,9 +123,12 @@
 			isa = PBXGroup;
 			children = (
 				7571CBC928C5BEAA00529718 /* SurgeApp.swift */,
-				7571CBCA28C5BEAA00529718 /* ContentView.swift */,
+				7571CBCA28C5BEAA00529718 /* HomeView.swift */,
 				7571CBCB28C5BEAB00529718 /* Assets.xcassets */,
 				75AA489928C683EE0032A3DC /* LightningNodeService.swift */,
+				75F3FBC828CD978E00FB6D61 /* HomeViewModel.swift */,
+				75F3FBCB28CD993E00FB6D61 /* PeersListView.swift */,
+				75F3FBC528CD95A000FB6D61 /* TransactionListView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -342,8 +354,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7571CBF328C5BEAB00529718 /* ContentView.swift in Sources */,
+				75F3FBC628CD95A000FB6D61 /* TransactionListView.swift in Sources */,
+				7571CBF328C5BEAB00529718 /* HomeView.swift in Sources */,
 				75AA489A28C683EE0032A3DC /* LightningNodeService.swift in Sources */,
+				75F3FBC928CD978E00FB6D61 /* HomeViewModel.swift in Sources */,
+				75F3FBCC28CD993E00FB6D61 /* PeersListView.swift in Sources */,
 				7571CBF128C5BEAB00529718 /* SurgeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,8 +367,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7571CBF428C5BEAB00529718 /* ContentView.swift in Sources */,
+				75F3FBC728CD95A000FB6D61 /* TransactionListView.swift in Sources */,
+				7571CBF428C5BEAB00529718 /* HomeView.swift in Sources */,
 				75AA489B28C683EE0032A3DC /* LightningNodeService.swift in Sources */,
+				75F3FBCA28CD978E00FB6D61 /* HomeViewModel.swift in Sources */,
+				75F3FBCD28CD993E00FB6D61 /* PeersListView.swift in Sources */,
 				7571CBF228C5BEAB00529718 /* SurgeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

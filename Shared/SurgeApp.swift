@@ -12,7 +12,7 @@ import Lightning
 struct SurgeApp: App {    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView(viewModel: HomeViewModel())
                 .onAppear {
                     Task {
                         try await LightningNodeService.shared.start()

@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
+    @StateObject var viewModel: HomeViewModel
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -49,25 +51,38 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    Image(systemName: "chevron.down")
-                        .font(.system(size: 48))
-                        .foregroundColor(Color(.systemGray))
+                    Button {
+                        viewModel.showTransactionHistory()
+                    } label: {
+                        Image(systemName: "chevron.down")
+                            .font(.system(size: 40))
+                            .foregroundColor(Color(.systemGray))
+                    }
                 }
                 .navigationBarItems(
                     trailing: Button(action: {
                         print("Open Peers Menu")
+                        viewModel.showPeers()
                     }, label:  {
                         Image(systemName: "person.3.sequence.fill")
                             .foregroundColor(Color(.darkText))
                     })
                 )
             }
+            .sheet(item: $viewModel.sheetToShow) { sheet in
+                switch sheet {
+                case .transactionHistory:
+                    TransactionListView()
+                case .peers:
+                    PeersListView()
+                }
+            }
         }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        HomeView(viewModel: HomeViewModel())
     }
 }
