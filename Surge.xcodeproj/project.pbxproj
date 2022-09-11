@@ -23,6 +23,12 @@
 		75AA489B28C683EE0032A3DC /* LightningNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA489928C683EE0032A3DC /* LightningNodeService.swift */; };
 		75AA489E28C685A30032A3DC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 75AA489D28C685A30032A3DC /* CryptoSwift */; };
 		75AA48A028C685AA0032A3DC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 75AA489F28C685AA0032A3DC /* CryptoSwift */; };
+		75D85C0928CE80BA00461E80 /* PeersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C0828CE80BA00461E80 /* PeersListViewModel.swift */; };
+		75D85C0A28CE80BA00461E80 /* PeersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C0828CE80BA00461E80 /* PeersListViewModel.swift */; };
+		75D85C0C28CE811200461E80 /* PeerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C0B28CE811200461E80 /* PeerCellViewModel.swift */; };
+		75D85C0D28CE811200461E80 /* PeerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C0B28CE811200461E80 /* PeerCellViewModel.swift */; };
+		75D85C0F28CE811C00461E80 /* PeerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C0E28CE811C00461E80 /* PeerCell.swift */; };
+		75D85C1028CE811C00461E80 /* PeerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C0E28CE811C00461E80 /* PeerCell.swift */; };
 		75F3FBC628CD95A000FB6D61 /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FBC528CD95A000FB6D61 /* TransactionListView.swift */; };
 		75F3FBC728CD95A000FB6D61 /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FBC528CD95A000FB6D61 /* TransactionListView.swift */; };
 		75F3FBC928CD978E00FB6D61 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FBC828CD978E00FB6D61 /* HomeViewModel.swift */; };
@@ -64,6 +70,9 @@
 		7571CC0A28C5C66300529718 /* Lightning */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Lightning; sourceTree = "<group>"; };
 		7571CC0B28C5C68700529718 /* Surge--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Surge--iOS--Info.plist"; sourceTree = "<group>"; };
 		75AA489928C683EE0032A3DC /* LightningNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightningNodeService.swift; sourceTree = "<group>"; };
+		75D85C0828CE80BA00461E80 /* PeersListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeersListViewModel.swift; sourceTree = "<group>"; };
+		75D85C0B28CE811200461E80 /* PeerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerCellViewModel.swift; sourceTree = "<group>"; };
+		75D85C0E28CE811C00461E80 /* PeerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerCell.swift; sourceTree = "<group>"; };
 		75F3FBC528CD95A000FB6D61 /* TransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListView.swift; sourceTree = "<group>"; };
 		75F3FBC828CD978E00FB6D61 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		75F3FBCB28CD993E00FB6D61 /* PeersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeersListView.swift; sourceTree = "<group>"; };
@@ -122,12 +131,12 @@
 		7571CBC828C5BEAA00529718 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				75D85C0728CE80A700461E80 /* Peers List */,
 				7571CBC928C5BEAA00529718 /* SurgeApp.swift */,
 				7571CBCA28C5BEAA00529718 /* HomeView.swift */,
 				7571CBCB28C5BEAB00529718 /* Assets.xcassets */,
 				75AA489928C683EE0032A3DC /* LightningNodeService.swift */,
 				75F3FBC828CD978E00FB6D61 /* HomeViewModel.swift */,
-				75F3FBCB28CD993E00FB6D61 /* PeersListView.swift */,
 				75F3FBC528CD95A000FB6D61 /* TransactionListView.swift */,
 			);
 			path = Shared;
@@ -183,6 +192,17 @@
 				7571CC0A28C5C66300529718 /* Lightning */,
 			);
 			name = Packages;
+			sourceTree = "<group>";
+		};
+		75D85C0728CE80A700461E80 /* Peers List */ = {
+			isa = PBXGroup;
+			children = (
+				75F3FBCB28CD993E00FB6D61 /* PeersListView.swift */,
+				75D85C0828CE80BA00461E80 /* PeersListViewModel.swift */,
+				75D85C0B28CE811200461E80 /* PeerCellViewModel.swift */,
+				75D85C0E28CE811C00461E80 /* PeerCell.swift */,
+			);
+			path = "Peers List";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -356,7 +376,10 @@
 			files = (
 				75F3FBC628CD95A000FB6D61 /* TransactionListView.swift in Sources */,
 				7571CBF328C5BEAB00529718 /* HomeView.swift in Sources */,
+				75D85C0C28CE811200461E80 /* PeerCellViewModel.swift in Sources */,
 				75AA489A28C683EE0032A3DC /* LightningNodeService.swift in Sources */,
+				75D85C0F28CE811C00461E80 /* PeerCell.swift in Sources */,
+				75D85C0928CE80BA00461E80 /* PeersListViewModel.swift in Sources */,
 				75F3FBC928CD978E00FB6D61 /* HomeViewModel.swift in Sources */,
 				75F3FBCC28CD993E00FB6D61 /* PeersListView.swift in Sources */,
 				7571CBF128C5BEAB00529718 /* SurgeApp.swift in Sources */,
@@ -369,7 +392,10 @@
 			files = (
 				75F3FBC728CD95A000FB6D61 /* TransactionListView.swift in Sources */,
 				7571CBF428C5BEAB00529718 /* HomeView.swift in Sources */,
+				75D85C0D28CE811200461E80 /* PeerCellViewModel.swift in Sources */,
 				75AA489B28C683EE0032A3DC /* LightningNodeService.swift in Sources */,
+				75D85C1028CE811C00461E80 /* PeerCell.swift in Sources */,
+				75D85C0A28CE80BA00461E80 /* PeersListViewModel.swift in Sources */,
 				75F3FBCA28CD978E00FB6D61 /* HomeViewModel.swift in Sources */,
 				75F3FBCD28CD993E00FB6D61 /* PeersListView.swift in Sources */,
 				7571CBF228C5BEAB00529718 /* SurgeApp.swift in Sources */,
