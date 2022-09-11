@@ -10,7 +10,7 @@ import SwiftUI
 
 class PeerCellViewModel: ObservableObject {
     let name: String
-    let connectionStatus: ConnectionStatus
+    let connectionStatus: PeerConnectionStatus
     
     var liquidityDisplayString: String {
         switch connectionStatus {
@@ -23,18 +23,7 @@ class PeerCellViewModel: ObservableObject {
         }
     }
     
-    struct LiquidityInformation {
-        let inboundLiqudity: UInt32
-        let outboundLiqudity: UInt32
-    }
-    
-    enum ConnectionStatus {
-        case unconnected
-        case connected(LiquidityInformation)
-        case pending(LiquidityInformation)
-    }
-    
-    internal init(name: String, connectionStatus: PeerCellViewModel.ConnectionStatus) {
+    internal init(name: String, connectionStatus: PeerConnectionStatus) {
         self.name = name
         self.connectionStatus = connectionStatus
     }

@@ -26,12 +26,14 @@ struct PeersListView: View {
                     }
                 } else {
                     List {
-                        ForEach(viewModel.peersViewModels, id: \.name) { peerCellViewModel in
-                            PeerCell(viewModel: peerCellViewModel)
+                        ForEach(viewModel.peersToShow, id: \.id) { peer in
+                            peerCell(peer: peer)
                         }
                     }
                 }
             }
+            .navigationTitle("Your Peers")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     addPeerButton()
@@ -40,10 +42,16 @@ struct PeersListView: View {
             .sheet(item: $viewModel.sheetToShow) { sheet  in
                 switch sheet {
                 case .addPeer:
-                    AddPeerView()
+                    viewModel.addPeerView()
                 }
             }
         }
+    }
+    
+    @ViewBuilder
+    func peerCell(peer: Peer) -> some View {
+        let peerCellViewModel = PeerCellViewModel(name: peer.name, connectionStatus: peer.connectionStatus)
+        PeerCell(viewModel: peerCellViewModel)
     }
     
     @ViewBuilder
@@ -69,8 +77,8 @@ struct PeersListView: View {
 struct PeersListView_Previews: PreviewProvider {
     static var previews: some View {
         let listViewModel = PeersListViewModel(peersViewModels: [
-            PeerCellViewModel(name: "Alice", connectionStatus: .connected(PeerCellViewModel.LiquidityInformation(inboundLiqudity: 100, outboundLiqudity: 250))),
-            PeerCellViewModel(name: "Bob", connectionStatus: .pending(PeerCellViewModel.LiquidityInformation(inboundLiqudity: 0, outboundLiqudity: 0))),
+            PeerCellViewModel(name: "Alice", connectionStatus: .connected(PeerConnectionStatus.LiquidityInformation(inboundLiqudity: 100, outboundLiqudity: 250))),
+            PeerCellViewModel(name: "Bob", connectionStatus: .pending(PeerConnectionStatus.LiquidityInformation(inboundLiqudity: 0, outboundLiqudity: 0))),
             PeerCellViewModel(name: "Charlie", connectionStatus: .unconnected)
         ])
         

@@ -11,15 +11,14 @@ class AddPeerViewModel: ObservableObject {
     @Published var pubKey: String = ""
     @Published var name: String = ""
     
-    var onSave: (() -> Void)? = nil
+    var onSave: ((Peer) -> Void)? = nil
     
     var isFormValid: Bool {
         !pubKey.isEmpty && !name.isEmpty
     }
     
     func savePeer() {
-        // Write to disk
-        // Tell Lightning node to connect to peer
-        onSave?()
+        // Send Peer information back to callback
+        onSave?(Peer(peerPubKey: pubKey, name: name, connectionStatus: .unconnected))
     }
 }

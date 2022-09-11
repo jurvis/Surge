@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddPeerView: View {    
+struct AddPeerView: View {
     @StateObject var viewModel: AddPeerViewModel = AddPeerViewModel()
     
     var body: some View {
@@ -45,7 +45,7 @@ struct AddPeerView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        print("Save Peer")
+                        viewModel.savePeer()
                     } label: {
                         Text("Save")
                     }

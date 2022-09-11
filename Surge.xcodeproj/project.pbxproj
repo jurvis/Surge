@@ -33,6 +33,12 @@
 		75D85C1328CE8B5300461E80 /* AddPeerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C1128CE8B5300461E80 /* AddPeerView.swift */; };
 		75D85C1528CE8F5700461E80 /* AddPeerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C1428CE8F5700461E80 /* AddPeerViewModel.swift */; };
 		75D85C1628CE8F5700461E80 /* AddPeerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C1428CE8F5700461E80 /* AddPeerViewModel.swift */; };
+		75D85C1A28CE927F00461E80 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C1928CE927F00461E80 /* Peer.swift */; };
+		75D85C1B28CE927F00461E80 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C1928CE927F00461E80 /* Peer.swift */; };
+		75D85C1D28CE92C200461E80 /* PeerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C1C28CE92C200461E80 /* PeerStore.swift */; };
+		75D85C1E28CE92C200461E80 /* PeerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C1C28CE92C200461E80 /* PeerStore.swift */; };
+		75D85C2028CE974900461E80 /* PeerConnectionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C1F28CE974900461E80 /* PeerConnectionStatus.swift */; };
+		75D85C2128CE974900461E80 /* PeerConnectionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C1F28CE974900461E80 /* PeerConnectionStatus.swift */; };
 		75F3FBC628CD95A000FB6D61 /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FBC528CD95A000FB6D61 /* TransactionListView.swift */; };
 		75F3FBC728CD95A000FB6D61 /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FBC528CD95A000FB6D61 /* TransactionListView.swift */; };
 		75F3FBC928CD978E00FB6D61 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FBC828CD978E00FB6D61 /* HomeViewModel.swift */; };
@@ -79,6 +85,9 @@
 		75D85C0E28CE811C00461E80 /* PeerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerCell.swift; sourceTree = "<group>"; };
 		75D85C1128CE8B5300461E80 /* AddPeerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPeerView.swift; sourceTree = "<group>"; };
 		75D85C1428CE8F5700461E80 /* AddPeerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPeerViewModel.swift; sourceTree = "<group>"; };
+		75D85C1928CE927F00461E80 /* Peer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
+		75D85C1C28CE92C200461E80 /* PeerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerStore.swift; sourceTree = "<group>"; };
+		75D85C1F28CE974900461E80 /* PeerConnectionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerConnectionStatus.swift; sourceTree = "<group>"; };
 		75F3FBC528CD95A000FB6D61 /* TransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListView.swift; sourceTree = "<group>"; };
 		75F3FBC828CD978E00FB6D61 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		75F3FBCB28CD993E00FB6D61 /* PeersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeersListView.swift; sourceTree = "<group>"; };
@@ -137,6 +146,8 @@
 		7571CBC828C5BEAA00529718 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				75D85C1828CE927600461E80 /* Model */,
+				75D85C1728CE927100461E80 /* Stores */,
 				75D85C0728CE80A700461E80 /* Peers List */,
 				7571CBC928C5BEAA00529718 /* SurgeApp.swift */,
 				7571CBCA28C5BEAA00529718 /* HomeView.swift */,
@@ -211,6 +222,23 @@
 				75D85C1428CE8F5700461E80 /* AddPeerViewModel.swift */,
 			);
 			path = "Peers List";
+			sourceTree = "<group>";
+		};
+		75D85C1728CE927100461E80 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				75D85C1C28CE92C200461E80 /* PeerStore.swift */,
+			);
+			path = Stores;
+			sourceTree = "<group>";
+		};
+		75D85C1828CE927600461E80 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				75D85C1928CE927F00461E80 /* Peer.swift */,
+				75D85C1F28CE974900461E80 /* PeerConnectionStatus.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,6 +419,9 @@
 				75D85C0928CE80BA00461E80 /* PeersListViewModel.swift in Sources */,
 				75D85C1528CE8F5700461E80 /* AddPeerViewModel.swift in Sources */,
 				75F3FBC928CD978E00FB6D61 /* HomeViewModel.swift in Sources */,
+				75D85C2028CE974900461E80 /* PeerConnectionStatus.swift in Sources */,
+				75D85C1D28CE92C200461E80 /* PeerStore.swift in Sources */,
+				75D85C1A28CE927F00461E80 /* Peer.swift in Sources */,
 				75F3FBCC28CD993E00FB6D61 /* PeersListView.swift in Sources */,
 				7571CBF128C5BEAB00529718 /* SurgeApp.swift in Sources */,
 			);
@@ -409,6 +440,9 @@
 				75D85C0A28CE80BA00461E80 /* PeersListViewModel.swift in Sources */,
 				75D85C1628CE8F5700461E80 /* AddPeerViewModel.swift in Sources */,
 				75F3FBCA28CD978E00FB6D61 /* HomeViewModel.swift in Sources */,
+				75D85C2128CE974900461E80 /* PeerConnectionStatus.swift in Sources */,
+				75D85C1E28CE92C200461E80 /* PeerStore.swift in Sources */,
+				75D85C1B28CE927F00461E80 /* Peer.swift in Sources */,
 				75F3FBCD28CD993E00FB6D61 /* PeersListView.swift in Sources */,
 				7571CBF228C5BEAB00529718 /* SurgeApp.swift in Sources */,
 			);

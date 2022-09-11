@@ -47,7 +47,7 @@ struct PeerCell_Previews: PreviewProvider {
             PeerCell(
                 viewModel: PeerCellViewModel(name: "Alice",
                                              connectionStatus: .connected(
-                                                PeerCellViewModel.LiquidityInformation(inboundLiqudity: 100, outboundLiqudity: 250)
+                                                PeerConnectionStatus.LiquidityInformation(inboundLiqudity: 100, outboundLiqudity: 250)
                                              ))
             )
         }
