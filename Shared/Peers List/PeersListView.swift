@@ -12,11 +12,36 @@ struct PeersListView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(viewModel.peersViewModels, id: \.name) { peerCellViewModel in
-                    PeerCell(viewModel: peerCellViewModel)
+            Group {
+                if viewModel.shouldShowEmptyState {
+                    VStack(spacing: 16) {
+                        Image(systemName: "exclamationmark.circle")
+                            .font(.system(size: 64))
+                            .foregroundColor(Color(.systemGray))
+                        VStack(spacing: 8) {
+                            Text("You have no peers.")
+                            Text("Hit the \"+\" button to add one.")
+                        }
+                        .foregroundColor(Color(.darkText))
+                    }
+                } else {
+                    List {
+                        ForEach(viewModel.peersViewModels, id: \.name) { peerCellViewModel in
+                            PeerCell(viewModel: peerCellViewModel)
+                        }
+                    }
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        print("Add a Peer")
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+            
         }
     }
 }
@@ -30,5 +55,6 @@ struct PeersListView_Previews: PreviewProvider {
         ])
         
         PeersListView(viewModel: listViewModel)
+        PeersListView()
     }
 }
