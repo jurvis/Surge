@@ -30,21 +30,31 @@ struct HomeView: View {
                         }
                                             
                         HStack(spacing: 62) {
-                            VStack(spacing: 4) {
-                                Image(systemName: "paperplane.circle.fill")
-                                    .font(.system(size: 48))
-                                    .foregroundColor(.orange)
-                                Text("Send")
-                                    .font(.callout)
-                                    .foregroundColor(Color(.darkText))
+                            Button {
+                                print("Show Send Screen")
+                            } label: {
+                                VStack(spacing: 4) {
+
+                                    Image(systemName: "paperplane.circle.fill")
+                                        .font(.system(size: 48))
+                                        .foregroundColor(.orange)
+                                    Text("Send")
+                                        .font(.callout)
+                                        .foregroundColor(Color(.darkText))
+                                }
                             }
-                            VStack(spacing: 4) {
-                                Image(systemName: "qrcode.viewfinder")
-                                    .font(.system(size: 48))
-                                    .foregroundColor(.teal)
-                                Text("Receive")
-                                    .font(.callout)
-                                    .foregroundColor(Color(.darkText))
+                            
+                            Button {
+                                print("Show Receive Screen")
+                            } label: {
+                                VStack(spacing: 4) {
+                                    Image(systemName: "qrcode.viewfinder")
+                                        .font(.system(size: 48))
+                                        .foregroundColor(.teal)
+                                    Text("Receive")
+                                        .font(.callout)
+                                        .foregroundColor(Color(.darkText))
+                                }
                             }
                         }
                     }
