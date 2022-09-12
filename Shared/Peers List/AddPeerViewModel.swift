@@ -23,6 +23,6 @@ class AddPeerViewModel: ObservableObject {
         guard let portInteger =  UInt16(port) else { return }
         let connectionInformation = Peer.PeerConnectionInformation(hostname: hostname, port: portInteger)
         // Send Peer information back to callback
-        onSave?(Peer(peerPubKey: pubKey, name: name, connectionStatus: .unconnected, connectionInformation: connectionInformation))
+        onSave?(Peer(peerPubKey: pubKey, name: name, connectionInformation: connectionInformation))
     }
 }

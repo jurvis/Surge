@@ -12,6 +12,9 @@ import SwiftUI
 class PeersListViewModel: ObservableObject {
     @Published var sheetToShow: Sheet?
     @Published var peersToShow: [Peer] = []
+    @Published var activePeerNodeIds: [String] = []
+    
+    private var cancellables = Set<AnyCancellable>()
     
     var shouldShowEmptyState: Bool {
         peersToShow.count == 0
@@ -25,6 +28,10 @@ class PeersListViewModel: ObservableObject {
     internal init(peers: [Peer] = []) {
         self.peersToShow = peers
         setup()
+    }
+    
+    func isNodeActive(nodeId: String) -> Bool {
+        return activePeerNodeIds.contains(nodeId)
     }
     
     func connectPeer(_ peer: Peer) async {
@@ -71,6 +78,10 @@ extension PeersListViewModel {
                 self.peersToShow = []
             }
         }
+        
+        LightningNodeService.shared.activePeersPublisher
+            .assign(to: \.activePeerNodeIds, on: self)
+            .store(in: &cancellables)
     }
 }
 

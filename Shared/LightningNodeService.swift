@@ -66,6 +66,13 @@ extension LightningNodeService {
     }
 }
 
+// MARK: Publishers
+extension LightningNodeService {
+    var activePeersPublisher: AnyPublisher<[String], Never> {
+        return instance.connectedPeers
+    }
+}
+
 // MARK: Errors
 extension LightningNodeService {
     public enum ServiceError: Error {

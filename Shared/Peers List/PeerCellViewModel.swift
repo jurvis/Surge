@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 class PeerCellViewModel: ObservableObject {
+    @Published var connectionStatus: PeerConnectionStatus
     let name: String
-    let connectionStatus: PeerConnectionStatus
     
     var liquidityDisplayString: String {
         switch connectionStatus {
@@ -22,7 +22,7 @@ class PeerCellViewModel: ObservableObject {
     }
     
     internal init(name: String, connectionStatus: PeerConnectionStatus) {
-        self.name = name
         self.connectionStatus = connectionStatus
+        self.name = name
     }
 }
