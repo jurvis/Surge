@@ -22,7 +22,8 @@ class PeersListViewModel: ObservableObject {
         case addPeer
     }
 
-    internal init(peersViewModels: [PeerCellViewModel] = []) {
+    internal init(peers: [Peer] = []) {
+        self.peersToShow = peers
         setup()
     }
     
@@ -79,9 +80,6 @@ extension PeersListViewModel {
             saveCurrentListofPeersToDisk { [unowned self] in
                 self.sheetToShow = nil
             }
-        }
-        addPeerViewModel.onDimiss = {
-            self.sheetToShow = nil
         }
         
         return AddPeerView(viewModel: addPeerViewModel)

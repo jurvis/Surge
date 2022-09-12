@@ -31,10 +31,7 @@ struct PeerCell: View {
         case .unconnected:
             Image(systemName: "circle.fill")
                 .foregroundColor(Color(.systemGray2))
-        case .pending(_):
-            Image(systemName: "circle.dotted")
-                .foregroundColor(.orange)
-        case .connected(_):
+        case .connected:
             Image(systemName: "circle.fill")
                 .foregroundColor(.green)
         }
@@ -45,10 +42,7 @@ struct PeerCell_Previews: PreviewProvider {
     static var previews: some View {
         List {
             PeerCell(
-                viewModel: PeerCellViewModel(name: "Alice",
-                                             connectionStatus: .connected(
-                                                PeerConnectionStatus.LiquidityInformation(inboundLiqudity: 100, outboundLiqudity: 250)
-                                             ))
+                viewModel: PeerCellViewModel(name: "Alice", connectionStatus: .connected)
             )
         }
     }

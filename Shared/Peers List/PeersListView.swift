@@ -77,11 +77,11 @@ struct PeersListView: View {
 
 struct PeersListView_Previews: PreviewProvider {
     static var previews: some View {
-        let listViewModel = PeersListViewModel(peersViewModels: [
-            PeerCellViewModel(name: "Alice", connectionStatus: .connected(PeerConnectionStatus.LiquidityInformation(inboundLiqudity: 100, outboundLiqudity: 250))),
-            PeerCellViewModel(name: "Bob", connectionStatus: .pending(PeerConnectionStatus.LiquidityInformation(inboundLiqudity: 0, outboundLiqudity: 0))),
-            PeerCellViewModel(name: "Charlie", connectionStatus: .unconnected)
-        ])
+        let listViewModel = PeersListViewModel(peers: [
+            Peer(peerPubKey: "abc", name: "Alice", connectionStatus: .connected),
+            Peer(peerPubKey: "def", name: "Bob", connectionStatus: .unconnected),
+            Peer(peerPubKey: "ghi", name: "Charlie", connectionStatus: .unconnected)]
+        )
         
         PeersListView(viewModel: listViewModel)
         PeersListView()

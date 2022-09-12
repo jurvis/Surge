@@ -9,11 +9,5 @@ import Foundation
 
 enum PeerConnectionStatus: Codable, Equatable {
     case unconnected
-    case connected(LiquidityInformation)
-    case pending(LiquidityInformation)
-    
-    struct LiquidityInformation: Codable, Equatable {
-        let inboundLiqudity: UInt32
-        let outboundLiqudity: UInt32
-    }
+    case connected
 }

@@ -36,13 +36,6 @@ struct AddPeerView: View {
             .navigationTitle("Add Peer")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        viewModel.onDimiss?()
-                    } label: {
-                        Text("Cancel")
-                    }
-                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         viewModel.savePeer()

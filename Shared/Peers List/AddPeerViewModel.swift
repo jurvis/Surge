@@ -12,7 +12,6 @@ class AddPeerViewModel: ObservableObject {
     @Published var name: String = ""
     
     var onSave: ((Peer) -> Void)? = nil
-    var onDimiss: (() -> Void)? = nil
     
     var isFormValid: Bool {
         !pubKey.isEmpty && !name.isEmpty

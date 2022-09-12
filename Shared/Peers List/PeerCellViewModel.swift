@@ -15,11 +15,9 @@ class PeerCellViewModel: ObservableObject {
     var liquidityDisplayString: String {
         switch connectionStatus {
         case .unconnected:
-            return "Open Channel"
-        case .connected(let liquidityInformation):
-            return "\(liquidityInformation.inboundLiqudity)/\(liquidityInformation.outboundLiqudity)"
-        case .pending(_):
-            return "Pending".capitalized
+            return "Connect Peer"
+        case .connected:
+            return "Connected"
         }
     }
     
