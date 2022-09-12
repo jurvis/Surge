@@ -25,7 +25,33 @@ class PeersListViewModel: ObservableObject {
     internal init(peersViewModels: [PeerCellViewModel] = []) {
         setup()
     }
+    
+    func deletePeer(at offsets: IndexSet) {
+        let oldPeerCount = peersToShow.count
+        
+        peersToShow.remove(atOffsets: offsets)
+                
+        if oldPeerCount != peersToShow.count {
+            saveCurrentListofPeersToDisk()
+        }
+    }
+}
 
+// MARK: Helper Methods
+extension PeersListViewModel {
+    private func saveCurrentListofPeersToDisk() {
+        PeerStore.save(peers: peersToShow) { result in
+            switch result {
+            case .success(let peerCount):
+                print("Saved \(peerCount) peers to disk.")
+                // Dismiss add peer screen
+                self.sheetToShow = nil
+            case .failure(_):
+                // FIXME: Handle some saving error
+                print("Error saving peer to disk")
+            }
+        }
+    }
     
     private func setup() {
         // Grab list of peers and set `peersViewModels`
@@ -51,18 +77,7 @@ extension PeersListViewModel {
         addPeerViewModel.onSave = { [unowned self] peer in
             // Append peers to list
             peersToShow = peersToShow + [peer]
-            
-            PeerStore.save(peers: peersToShow) { result in
-                switch result {
-                case .success(let peerCount):
-                    print("Saved \(peerCount) peers to disk.")
-                    // Dismiss add peer screen
-                    self.sheetToShow = nil
-                case .failure(_):
-                    // FIXME: Handle some saving error
-                    print("Error saving peer to disk")
-                }
-            }
+            saveCurrentListofPeersToDisk()
         }
         
         return AddPeerView(viewModel: addPeerViewModel)

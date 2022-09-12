@@ -29,6 +29,7 @@ struct PeersListView: View {
                         ForEach(viewModel.peersToShow, id: \.id) { peer in
                             peerCell(peer: peer)
                         }
+                        .onDelete(perform: viewModel.deletePeer)
                     }
                 }
             }

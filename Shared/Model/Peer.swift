@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Peer: Identifiable, Codable {
+struct Peer: Identifiable, Codable, Equatable {
     let id: UUID
     let peerPubKey: String
     let name: String
@@ -18,5 +18,10 @@ struct Peer: Identifiable, Codable {
         self.peerPubKey = peerPubKey
         self.name = name
         self.connectionStatus = connectionStatus
+    }
+    
+    static func == (lhs: Peer, rhs: Peer) -> Bool {
+        return lhs.id == rhs.id &&
+            lhs.connectionStatus == rhs.connectionStatus
     }
 }
