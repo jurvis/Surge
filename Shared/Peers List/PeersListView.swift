@@ -52,8 +52,7 @@ struct PeersListView: View {
     @ViewBuilder
     func peerCell(peer: Peer) -> some View {
         let isPeerActive = viewModel.isNodeActive(nodeId: peer.peerPubKey)
-        let peerCellViewModel = PeerCellViewModel(name: peer.name, connectionStatus: isPeerActive ? .connected : .unconnected)
-        PeerCell(viewModel: peerCellViewModel)
+        PeerCell(viewModel: PeerCellViewModel(name: peer.name), connectionStatus: isPeerActive ? .connected : .unconnected)
             .onTapGesture {
                 Task {
                     await self.viewModel.connectPeer(peer)

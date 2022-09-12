@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PeerCell: View {
     @StateObject var viewModel: PeerCellViewModel
+    var connectionStatus: PeerConnectionStatus
     
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
@@ -16,7 +17,7 @@ struct PeerCell: View {
             Spacer()
             
             HStack {
-                Text(viewModel.liquidityDisplayString)
+                Text(viewModel.liquidityDisplayString(connectionStatus: connectionStatus))
                     .font(.system(.caption, design: .rounded))
                     .foregroundColor(Color(.darkGray))
                 statusImage()
@@ -27,7 +28,7 @@ struct PeerCell: View {
     
     @ViewBuilder
     fileprivate func statusImage() -> some View {
-        switch viewModel.connectionStatus {
+        switch connectionStatus {
         case .unconnected:
             Image(systemName: "circle.fill")
                 .foregroundColor(Color(.systemGray2))
@@ -41,9 +42,7 @@ struct PeerCell: View {
 struct PeerCell_Previews: PreviewProvider {
     static var previews: some View {
         List {
-            PeerCell(
-                viewModel: PeerCellViewModel(name: "Alice", connectionStatus: .connected)
-            )
+            PeerCell(viewModel: PeerCellViewModel(name: "Alice"), connectionStatus: .connected)
         }
     }
 }
