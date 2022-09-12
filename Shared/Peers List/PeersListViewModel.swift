@@ -39,13 +39,12 @@ class PeersListViewModel: ObservableObject {
 
 // MARK: Helper Methods
 extension PeersListViewModel {
-    private func saveCurrentListofPeersToDisk() {
+    private func saveCurrentListofPeersToDisk(completion: (() -> Void)? = nil) {
         PeerStore.save(peers: peersToShow) { result in
             switch result {
             case .success(let peerCount):
                 print("Saved \(peerCount) peers to disk.")
-                // Dismiss add peer screen
-                self.sheetToShow = nil
+                completion?()
             case .failure(_):
                 // FIXME: Handle some saving error
                 print("Error saving peer to disk")
@@ -77,7 +76,12 @@ extension PeersListViewModel {
         addPeerViewModel.onSave = { [unowned self] peer in
             // Append peers to list
             peersToShow = peersToShow + [peer]
-            saveCurrentListofPeersToDisk()
+            saveCurrentListofPeersToDisk { [unowned self] in
+                self.sheetToShow = nil
+            }
+        }
+        addPeerViewModel.onDimiss = {
+            self.sheetToShow = nil
         }
         
         return AddPeerView(viewModel: addPeerViewModel)

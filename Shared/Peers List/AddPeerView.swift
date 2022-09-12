@@ -38,7 +38,7 @@ struct AddPeerView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        print("Cancel")
+                        viewModel.onDimiss?()
                     } label: {
                         Text("Cancel")
                     }
