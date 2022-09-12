@@ -24,6 +24,21 @@ struct AddPeerView: View {
                     
                     Divider().padding(.leading, 12)
                     
+                    TextField("Hostname", text: $viewModel.hostname)
+                        .font(.subheadline)
+                        .padding(.leading)
+                        .frame(height: 44)
+                    
+                    Divider().padding(.leading, 12)
+                    
+                    TextField("Port", text: $viewModel.port)
+                        .keyboardType(.numberPad)
+                        .font(.subheadline)
+                        .padding(.leading)
+                        .frame(height: 44)
+                    
+                    Divider().padding(.leading, 12)
+                    
                     TextField("Name", text: $viewModel.name)
                         .font(.subheadline)
                         .padding(.leading)

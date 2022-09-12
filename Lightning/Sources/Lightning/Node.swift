@@ -120,6 +120,19 @@ public class Node {
      
         print("Surge: LDK is Running with key: \(channelManager.get_our_node_id().toHexString())")
     }
+    
+    public func connectPeer(pubKey: String, hostname: String, port: UInt16) async throws {
+        print("Surge: Connecting to peer \(pubKey)")
+        guard let _ = peerManager else {
+            throw NodeError.connectPeer
+        }
+        
+        guard let _ = tcpPeerHandler?.connect(address: hostname, port: port, theirNodeId: pubKey.toByteArray()) else {
+            throw NodeError.connectPeer
+        }
+        
+        print("Surge: peer connected \(pubKey)")
+    }
 }
 
 

@@ -53,6 +53,11 @@ struct PeersListView: View {
     func peerCell(peer: Peer) -> some View {
         let peerCellViewModel = PeerCellViewModel(name: peer.name, connectionStatus: peer.connectionStatus)
         PeerCell(viewModel: peerCellViewModel)
+            .onTapGesture {
+                Task {
+                    await self.viewModel.connectPeer(peer)
+                }
+            }
     }
     
     @ViewBuilder
@@ -77,10 +82,11 @@ struct PeersListView: View {
 
 struct PeersListView_Previews: PreviewProvider {
     static var previews: some View {
+        let dummyConnectionInfo = Peer.PeerConnectionInformation(hostname: "localhost", port: 8080)
         let listViewModel = PeersListViewModel(peers: [
-            Peer(peerPubKey: "abc", name: "Alice", connectionStatus: .connected),
-            Peer(peerPubKey: "def", name: "Bob", connectionStatus: .unconnected),
-            Peer(peerPubKey: "ghi", name: "Charlie", connectionStatus: .unconnected)]
+            Peer(peerPubKey: "abc", name: "Alice", connectionStatus: .connected, connectionInformation: dummyConnectionInfo),
+            Peer(peerPubKey: "def", name: "Bob", connectionStatus: .unconnected, connectionInformation: dummyConnectionInfo),
+            Peer(peerPubKey: "ghi", name: "Charlie", connectionStatus: .unconnected, connectionInformation: dummyConnectionInfo)]
         )
         
         PeersListView(viewModel: listViewModel)

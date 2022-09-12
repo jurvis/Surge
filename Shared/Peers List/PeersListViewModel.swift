@@ -27,6 +27,14 @@ class PeersListViewModel: ObservableObject {
         setup()
     }
     
+    func connectPeer(_ peer: Peer) async {
+        do {
+            try await LightningNodeService.shared.connectPeer(peer)
+        } catch {
+            print("Error connecting to peer")
+        }
+    }
+    
     func deletePeer(at offsets: IndexSet) {
         let oldPeerCount = peersToShow.count
         

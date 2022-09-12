@@ -52,6 +52,10 @@ class LightningNodeService {
             throw error
         }
     }
+    
+    func connectPeer(_ peer: Peer) async throws {
+        try await instance.connectPeer(pubKey: peer.peerPubKey, hostname: peer.connectionInformation.hostname, port: peer.connectionInformation.port)
+    }
 }
 
 // MARK: Helpers
