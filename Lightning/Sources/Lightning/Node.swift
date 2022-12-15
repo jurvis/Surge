@@ -36,20 +36,25 @@ public class Node {
         self.connectionType = type
     }
     
+    /// Start the Lightning node
     public func start() async throws {
+        // (1) Retrieve our key's 32-byte seed
         guard let keySeed = fileManager.getKeysSeed() else { throw NodeError.keySeedNotFound }
         
         let timestampInSeconds = UInt64(Date().timeIntervalSince1970)
         let timestampInNanoseconds = UInt32(truncating: NSNumber(value: timestampInSeconds * 1000 * 1000))
         
-        // Setup KeysManager
+        // (2) Setup KeysManager with `keySeed`. With add entropy using the current time. See this comment for more information: https://docs.rs/lightning/0.0.112/lightning/chain/keysinterface/struct.KeysManager.html#method.new
         keysManager = KeysManager(seed: keySeed, starting_time_secs: timestampInSeconds, starting_time_nanos: timestampInNanoseconds)
         
-        // grab keyInterface, we will need it later to construct a ChannelManager
+        // (3) Grabs an instance of KeysInterface, we will need it later to construct a ChannelManager
         guard let keysInterface = keysManager?.as_KeysInterface() else {
             throw NodeError.keyInterfaceFailure
         }
         
+        // (4) Initialize rpcInterface, which represents a series of chain methods that are necessary for chain sync.
+        // Note: this is an API design unique to Surge. We introduce the `RpcChainManager` protocol to allow us to
+        // interact with different types of block sources with just a different choice of a `RpcChainManager` instance.
         switch connectionType {
         case .regtest(let bitcoinCoreRpcConfig):
             rpcInterface = try BitcoinCoreChainManager(
@@ -67,8 +72,12 @@ public class Node {
             throw NodeError.noChainManager
         }
         
+        // (5) Initialized Broadcaster, primarily responsible for broadcasting requisite transaction on-chain.
         broadcaster = Broadcaster(rpcInterface: rpcInterface)
         
+        // (6) Initialize a ChainMonitor. As the name describes, this is what we will use to watch on-chain activity
+        // related to our channels. You can think of Chain Sync as the nervous system of the Lightning node. Its mostly responsible
+        // for detecting stimuli that is relevant for its purposes, and feeds information back to the brain (`ChannelManager`)
         let chainMonitor = ChainMonitor(
             chain_source: Option_FilterZ(value: filter),
             broadcaster: broadcaster!, // Force unwrap since we definitely set it in L61
@@ -77,16 +86,23 @@ public class Node {
             persister: ChannelPersister()
         )
         
+        // (7) Do requisite chain sync to start.
         if case .regtest = connectionType,
            let rpcInterface = rpcInterface as? BitcoinCoreChainManager {
+            // If we're using Bitcoin Core, we will tell the ChainMonitor to connect blocks up to the latest chain tip.
             try await rpcInterface.preloadMonitor(anchorHeight: .chaintip)
         }
         
-        
+        // (8) Construct ChannelManager. The ChannelManager, as mentioned earlier, is like the brain of the node. It is responsible for
+        // sending messages to appropriate channels, track HTLCs, forward onion packets, and also track a user's channels. It can also be
+        // persisted on disk, which is what you generally want to do as often as possible -- this is equivalent to a "node backup".
+        // The general advice here is to make sure that your `ChannelManager` *is encrypted*, because you can certainly glean information
+        // about a user's payment history if they get leaked out in the clear.
         if fileManager.hasChannelMaterialAndNetworkGraph {
+            // Load our channel manager from disk
             channelManagerConstructor = try await loadChannelManagerConstructor(keysInterface: keysInterface, chainMonitor: chainMonitor)
         } else {
-            // Create new channel material and network graph
+            // An existing ChannelManager does not exist on disk, create new channel material and network graph
             let chaintipHeight = try await rpcInterface.getChaintipHeight()
             let chaintipHash = try await rpcInterface.getChaintipHash()
             let reversedChaintipHash = [UInt8](chaintipHash.reversed())
@@ -100,10 +116,13 @@ public class Node {
             )
         }
         
+        // Create shared instance reference to these objects, so we can use them for opening and managing channels and connecting to peers,
+        // respectively.
         channelManager = channelManagerConstructor!.channelManager // we just set ChannelManagerConstructor above
         peerManager = channelManagerConstructor!.peerManager
         tcpPeerHandler = channelManagerConstructor!.getTCPPeerHandler()
         
+        // (9) Initialize Persister, which is primarily responsible for persisting `ChannelManager`, `Scorer`, and `NetworkGraph` to disk.
         persister = Persister(eventTracker: pendingEventTracker)
         guard let channelManager = channelManager else {
             throw NodeError.noChannelManager
@@ -121,6 +140,7 @@ public class Node {
         print("Surge: LDK is Running with key: \(channelManager.get_our_node_id().toHexString())")
     }
     
+    /// Connect to a Peer on the Network.
     public func connectPeer(pubKey: String, hostname: String, port: UInt16) async throws {
         print("Surge: Connecting to peer \(pubKey)")
         guard let _ = peerManager else {
@@ -153,6 +173,7 @@ extension Node {
 
 // MARK: Helpers
 extension Node {
+    /// Receives downstream events from an upstream `Publisher` of `RpcChainManager`. Primarily used for reconciling chain tip.
     private func subscribeToChainPublisher() throws {
         guard let rpcInterface = rpcInterface else {
             throw NodeError.noChainManager
@@ -180,6 +201,7 @@ extension Node {
             .store(in: &cancellables)
     }
     
+    /// Used for loading a channel manager from the Documents directory.
     private func loadChannelManagerConstructor(keysInterface: KeysInterface, chainMonitor: ChainMonitor) async throws -> ChannelManagerConstructor {
         if let channelManager = fileManager.getSerializedChannelManager(),
            let networkGraph = fileManager.getSerializedNetworkGraph() {
