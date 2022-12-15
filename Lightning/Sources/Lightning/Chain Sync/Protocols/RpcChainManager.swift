@@ -1,6 +1,6 @@
 //
 //  RpcChainManager.swift
-//  
+//  A protocol that establishes a contract for environment-agnostic chain interactions.
 //
 //  Created by Jurvis on 9/5/22.
 //

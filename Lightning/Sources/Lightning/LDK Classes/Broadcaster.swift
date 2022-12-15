@@ -1,6 +1,7 @@
 //
 //  Broadcaster.swift
-//  
+//  Conforms to the `BroadcasterInterface` protocol, which establishes behavior for broadcasting
+//  a transaction to the Bitcoin network.
 //
 //  Created by Jurvis on 9/5/22.
 //
@@ -15,7 +16,7 @@ class Broadcaster: BroadcasterInterface {
         self.chainInterface = rpcInterface
         super.init()
     }
-      
+
     override func broadcast_transaction(tx: [UInt8]) {
         print("Surge: Broadcasting Transaction")
 

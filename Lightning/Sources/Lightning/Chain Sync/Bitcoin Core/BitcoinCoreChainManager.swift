@@ -43,6 +43,8 @@ class BitcoinCoreChainManager {
         self.chainListeners.append(listener)
     }
     
+    /// This method takes in an `anchorHeight` and provides us with a way to make the requisite calls needed to Bitcoin Core in order to
+    /// let `Listener`s know about blocks to connect.
     func preloadMonitor(anchorHeight: MonitorAnchor) async throws {
         // If tracker is already preloaded, don't try again.
         guard !(await self.monitoringTracker.preload()) else {
