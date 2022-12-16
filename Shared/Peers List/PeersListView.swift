@@ -46,6 +46,20 @@ struct PeersListView: View {
                     viewModel.addPeerView()
                 }
             }
+            .confirmationDialog("Action", isPresented: viewModel.showConfirmationDialog) {
+                Button("Connect Peer") {
+                    Task {
+                        await viewModel.connectFocusedPeer()
+                        viewModel.dismissFocusedPeer()
+                    }
+                }
+                Button("Open Channel") {
+                    Task {
+                        await viewModel.openChannelWithFocusedPeer()
+                    }
+                }
+                Button("Cancel", role: .cancel) { viewModel.dismissFocusedPeer() }
+            }
         }
     }
     
@@ -54,9 +68,7 @@ struct PeersListView: View {
         let isPeerActive = viewModel.isNodeActive(nodeId: peer.peerPubKey)
         PeerCell(viewModel: PeerCellViewModel(name: peer.name), connectionStatus: isPeerActive ? .connected : .unconnected)
             .onTapGesture {
-                Task {
-                    await self.viewModel.connectPeer(peer)
-                }
+                self.viewModel.focusPeer(peer: peer)
             }
     }
     

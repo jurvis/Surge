@@ -13,6 +13,22 @@ class PeersListViewModel: ObservableObject {
     @Published var sheetToShow: Sheet?
     @Published var peersToShow: [Peer] = []
     @Published var activePeerNodeIds: [String] = []
+    @Published private var focusedPeer: Peer?
+    
+    var showConfirmationDialog: Binding<Bool> {
+        Binding {
+            if let _ = self.focusedPeer {
+                return true
+            } else {
+                return false
+            }
+
+        } set: { shouldShowConfirmationDialog in
+            if !shouldShowConfirmationDialog {
+                self.focusedPeer = nil
+            }
+        }
+    }
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -42,6 +58,26 @@ class PeersListViewModel: ObservableObject {
         }
     }
     
+    func focusPeer(peer: Peer) {
+        focusedPeer = peer
+    }
+    
+    func dismissFocusedPeer() {
+        focusedPeer = nil
+    }
+
+    func connectFocusedPeer() async {
+        guard let peer = focusedPeer else {
+            return
+        }
+        
+        do {
+            try await LightningNodeService.shared.connectPeer(peer)
+        } catch {
+            print("Error connecting to peer")
+        }
+    }
+    
     func deletePeer(at offsets: IndexSet) {
         let oldPeerCount = peersToShow.count
         
@@ -49,6 +85,16 @@ class PeersListViewModel: ObservableObject {
                 
         if oldPeerCount != peersToShow.count {
             saveCurrentListofPeersToDisk()
+        }
+    }
+    
+    func openChannelWithFocusedPeer() async throws  {
+        guard let focusedPeer = focusedPeer else { return }
+        do {
+            let channelOpenInfo = try await LightningNodeService.shared.requestChannelOpen(focusedPeer.peerPubKey, channelValue: 1_300_000, reserveAmount: 1000)
+            let fundingScriptPubKey
+        } catch {
+            
         }
     }
 }
