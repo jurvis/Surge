@@ -82,6 +82,12 @@ class BitcoinCoreChainManager {
     func isMonitoring() async -> Bool {
         return await self.monitoringTracker.startTracking()
     }
+    
+    func getBogusAddress() async -> String {
+        let scriptDetails = try! await decodeScript(script: [0, 1, 0])
+        let fakeAddress = ((scriptDetails["segwit"] as! [String: Any])["addresses"] as! [String]).first!
+        return fakeAddress
+    }
 }
 
 // MARK: Helper Functions
@@ -272,6 +278,43 @@ extension BitcoinCoreChainManager {
         let blockHeader = hexStringToBytes(hexString: result)!
         assert(blockHeader.count == 80)
         return blockHeader
+    }
+    
+    public func getTransaction(with hash: String) async throws -> [UInt8] {
+        let response = try await self.callRpcMethod(method: "getrawtransaction", params: [hash])
+        let txHex = response["result"] as! String
+        let transaction = hexStringToBytes(hexString: txHex)!
+        return transaction
+    }
+    
+    /**
+     Decode an arbitary script. Can be an output script, a redeem script, or anything else
+     - Parameter script: byte array serialization of script
+     - Returns: Object with various possible interpretations of the script
+     - Throws:
+     */
+    public func decodeScript(script: [UInt8]) async throws -> [String: Any] {
+        let scriptHex = bytesToHexString(bytes: script)
+        let response = try await self.callRpcMethod(method: "decodescript", params: [scriptHex])
+        let result = response["result"] as! [String: Any]
+        return result
+    }
+
+    /**
+     Mine regtest blocks
+     - Parameters:
+       - number: The number of blocks to mine
+       - coinbaseDestinationAddress: The output address to be used in the coinbase transaction(s)
+     - Returns: Array of the mined blocks' hashes
+     - Throws: If the RPC connection fails or the call results in an error
+     */
+    func mineBlocks(number: Int, coinbaseDestinationAddress: String) async throws -> [String]  {
+        let response = try await self.callRpcMethod(method: "generatetoaddress", params: [
+            "nblocks": number,
+            "address": coinbaseDestinationAddress
+        ])
+        let result = response["result"] as! [String]
+        return result
     }
 }
 
