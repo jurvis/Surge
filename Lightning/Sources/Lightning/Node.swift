@@ -153,6 +153,91 @@ public class Node {
         
         print("Surge: peer connected \(pubKey)")
     }
+    
+    public func requestChannelOpen(_ pubKeyHex: String, channelValue: UInt64, reserveAmount: UInt64) async throws -> ChannelOpenInfo {
+        guard let channelManager = channelManager else {
+            throw NodeError.Channels.channelManagerNotFound
+        }
+        
+        // open_channel
+        let theirNodeId = pubKeyHex.toByteArray()
+        let config = UserConfig()
+        let channelOpenResult = channelManager.create_channel(
+            their_network_key: theirNodeId,
+            channel_value_satoshis: channelValue,
+            push_msat: reserveAmount,
+            user_channel_id: 42,
+            override_config: config
+        )
+        
+        // See if peer has returned `accept_channel`
+        if channelOpenResult.isOk() {
+            let managerEvents = await getManagerEvents(expectedCount: 1)
+            let managerEvent = managerEvents[0]
+            // FIXME: Handle event where opening channel can fail (< min funding amount, wrong chain, etc.)
+            // The event takes on the following schema: https://docs.rs/lightning/0.0.112/lightning/util/events/enum.Event.html#variant.FundingGenerationReady
+            // In particular, `output_script` is the script we should be using in the transaction output. It basically
+            // looks something like: 2 <Alice_funding_pubkey> <Bob_funding_pubkey> 2 CHECKMULTISIG
+            let fundingReadyEvent = managerEvent.getValueAsFundingGenerationReady()!
+            
+            return ChannelOpenInfo(
+                fundingOutputScript: fundingReadyEvent.getOutput_script(),
+                temporaryChannelId: fundingReadyEvent.getTemporary_channel_id(),
+                counterpartyNodeId: pubKeyHex.toByteArray()
+            )
+        } else if let errorDetails = channelOpenResult.getError() {
+            throw errorDetails.getLDKError()
+        }
+        
+        throw NodeError.Channels.unknown
+    }
+    
+    public func getFundingTransaction(fundingTxid: String) async -> [UInt8] {
+        // FIXME: We can probably not force unwrap here if we can carefully intialize rpcInterface in the Node's initializer
+        return try! await rpcInterface!.getTransaction(with: fundingTxid)
+    }
+    
+    // You will need channelOpenInfo from `requestChannelOpen`, and `fundingTransaction` from `getFundingTransaction`
+    public func openChannel(channelOpenInfo: ChannelOpenInfo, fundingTransaction: [UInt8]) async throws -> Bool {
+        guard let channelManager = channelManager else {
+            throw NodeError.Channels.channelManagerNotFound
+        }
+        
+        // Create the funding transaction and do the `funding_created/funding_signed` dance with our counterparty.
+        // After that, LDK will automatically broadcast it via the `BroadcasterInterface` we gave `ChannelManager`.
+        var fundingResult: LightningDevKit.Result_NoneAPIErrorZ
+        fundingResult = channelManager.funding_transaction_generated(
+            temporary_channel_id: channelOpenInfo.temporaryChannelId,
+            counterparty_node_id: channelOpenInfo.counterpartyNodeId,
+            funding_transaction: fundingTransaction
+        )
+        
+        if case .regtest(_) = connectionType {
+            // Let's manually add 6 confirmations to confirm the channel open
+            let coreChainManager = rpcInterface as! BitcoinCoreChainManager
+            let fakeAddress = await coreChainManager.getBogusAddress()
+            _ = try! await coreChainManager.mineBlocks(
+                number: 6,
+                coinbaseDestinationAddress: fakeAddress
+            )
+        }
+        
+        if fundingResult.isOk() {
+            return true
+        } else if let error = fundingResult.getError()?.getLDKError() {
+            throw error
+        }
+        
+        throw NodeError.Channels.fundingFailure
+    }
+}
+
+extension Node {
+    public struct ChannelOpenInfo {
+        public let fundingOutputScript: [UInt8]
+        public let temporaryChannelId: [UInt8]
+        public let counterpartyNodeId: [UInt8]
+    }
 }
 
 // MARK: Publishers
@@ -253,4 +338,16 @@ extension Node {
             enableP2PGossip: true
         )
     }
+    
+    private func getManagerEvents(expectedCount: UInt) async -> [Event] {
+       if let _ = channelManagerConstructor {
+           while true {
+               if await self.pendingEventTracker.getCount() >= expectedCount {
+                   return await self.pendingEventTracker.getAndClearEvents()
+               }
+               await self.pendingEventTracker.awaitAddition()
+           }
+       }
+       return []
+   }
 }

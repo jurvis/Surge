@@ -15,4 +15,6 @@ protocol RpcChainManager {
     func getChaintipHeight() async throws -> UInt32
     func getChaintipHash() async throws -> [UInt8]
     func isMonitoring() async -> Bool
+    
+    func getTransaction(with hash: String) async throws -> [UInt8]
 }
