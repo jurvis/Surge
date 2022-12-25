@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Peer: Identifiable, Codable, Equatable {
+struct Peer: Codable, Equatable {
     let id: UUID
     let peerPubKey: String
     let name: String
@@ -19,10 +19,6 @@ struct Peer: Identifiable, Codable, Equatable {
         self.name = name
         self.connectionInformation = connectionInformation
     }
-    
-    static func == (lhs: Peer, rhs: Peer) -> Bool {
-        return lhs.id == rhs.id
-    }
 }
 
 // MARK: Helper Models
@@ -32,3 +28,18 @@ extension Peer {
         let port: UInt16
     }
 }
+
+extension Peer: Identifiable, Hashable {
+    var identifier: String {
+        return peerPubKey
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(identifier)
+    }
+    
+    public static func == (lhs: Peer, rhs: Peer) -> Bool {
+        return lhs.peerPubKey == rhs.peerPubKey
+    }
+}
+

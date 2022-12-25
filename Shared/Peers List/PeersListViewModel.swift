@@ -36,9 +36,10 @@ class PeersListViewModel: ObservableObject {
         peersToShow.count == 0
     }
     
-    enum Sheet: Identifiable {
+    enum Sheet: Hashable, Identifiable {
         var id: Self { self }
         case addPeer
+        case showPeer(Peer)
     }
 
     internal init(peers: [Peer] = []) {
@@ -85,16 +86,6 @@ class PeersListViewModel: ObservableObject {
                 
         if oldPeerCount != peersToShow.count {
             saveCurrentListofPeersToDisk()
-        }
-    }
-    
-    func openChannelWithFocusedPeer() async throws  {
-        guard let focusedPeer = focusedPeer else { return }
-        do {
-            let channelOpenInfo = try await LightningNodeService.shared.requestChannelOpen(focusedPeer.peerPubKey, channelValue: 1_300_000, reserveAmount: 1000)
-            let fundingScriptPubKey
-        } catch {
-            
         }
     }
 }
@@ -148,5 +139,13 @@ extension PeersListViewModel {
         }
         
         return AddPeerView(viewModel: addPeerViewModel)
+    }
+    
+    func showPeerScreen(peer: Peer) {
+        self.sheetToShow = .showPeer(peer)
+    }
+    
+    func showPeerView(peer: Peer) -> some View {
+        return PeerView(viewModel: PeerViewModel(peer: peer))
     }
 }

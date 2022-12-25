@@ -44,32 +44,35 @@ struct PeersListView: View {
                 switch sheet {
                 case .addPeer:
                     viewModel.addPeerView()
+                case .showPeer(let peer):
+                    viewModel.showPeerView(peer: peer)
                 }
             }
-            .confirmationDialog("Action", isPresented: viewModel.showConfirmationDialog) {
-                Button("Connect Peer") {
-                    Task {
-                        await viewModel.connectFocusedPeer()
-                        viewModel.dismissFocusedPeer()
-                    }
-                }
-                Button("Open Channel") {
-                    Task {
-                        await viewModel.openChannelWithFocusedPeer()
-                    }
-                }
-                Button("Cancel", role: .cancel) { viewModel.dismissFocusedPeer() }
-            }
+//            .confirmationDialog("Action", isPresented: viewModel.showConfirmationDialog) {
+//                Button("Connect Peer") {
+//                    Task {
+//                        await viewModel.connectFocusedPeer()
+//                        viewModel.dismissFocusedPeer()
+//                    }
+//                }
+//                Button("Open Channel") {
+//                    Task {
+//                        try await viewModel.openChannelWithFocusedPeer()
+//                    }
+//                }
+//                Button("Cancel", role: .cancel) { viewModel.dismissFocusedPeer() }
+//            }
         }
     }
     
     @ViewBuilder
     func peerCell(peer: Peer) -> some View {
         let isPeerActive = viewModel.isNodeActive(nodeId: peer.peerPubKey)
-        PeerCell(viewModel: PeerCellViewModel(name: peer.name), connectionStatus: isPeerActive ? .connected : .unconnected)
-            .onTapGesture {
-                self.viewModel.focusPeer(peer: peer)
-            }
+        Button {
+            self.viewModel.showPeerScreen(peer: peer)
+        } label: {
+            PeerCell(viewModel: PeerCellViewModel(name: peer.name), connectionStatus: isPeerActive ? .connected : .unconnected)
+        }
     }
     
     @ViewBuilder
