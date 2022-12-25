@@ -48,6 +48,18 @@ class LightningNodeService {
         
         do {
             try await instance.start()
+            PeerStore.load { [unowned self] result in
+                switch result {
+                case .success(let peers):
+                    for peer in peers {
+                        Task {
+                            try! await instance.connectPeer(pubKey: peer.peerPubKey, hostname: peer.connectionInformation.hostname, port: peer.connectionInformation.port)
+                        }
+                    }
+                case .failure:
+                    print("Error loading peers from disk.")
+                }
+            }
         } catch {
             throw error
         }
