@@ -255,6 +255,7 @@ extension Node {
     public var connectedPeers: AnyPublisher<[String], Never> {
         Timer.publish(every: 5, on: .main, in: .default)
             .autoconnect()
+            .prepend(Date())
             .filter { [weak self] _ in self?.peerManager != nil }
             .flatMap { [weak self] _ -> AnyPublisher<[String], Never> in
                 let peers = self?.peerManager!.get_peer_node_ids().compactMap { $0.toHexString() }
