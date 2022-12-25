@@ -56,6 +56,20 @@ class LightningNodeService {
     func connectPeer(_ peer: Peer) async throws {
         try await instance.connectPeer(pubKey: peer.peerPubKey, hostname: peer.connectionInformation.hostname, port: peer.connectionInformation.port)
     }
+    
+    func requestChannelOpen(_ pubKeyHex: String, channelValue: UInt64, reserveAmount: UInt64) async throws -> Lightning.Node.ChannelOpenInfo {
+        do {
+            let channelOpenInfo = try await instance.requestChannelOpen(
+                pubKeyHex,
+                channelValue: channelValue,
+                reserveAmount: reserveAmount
+            )
+            
+            return channelOpenInfo
+        } catch {
+            throw ServiceError.cannotOpenChannel
+        }
+    }
 }
 
 // MARK: Helpers
