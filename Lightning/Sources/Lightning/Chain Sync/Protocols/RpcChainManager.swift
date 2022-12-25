@@ -17,4 +17,11 @@ protocol RpcChainManager {
     func isMonitoring() async -> Bool
     
     func getTransaction(with hash: String) async throws -> [UInt8]
+    /**
+     Decode an arbitary script. Can be an output script, a redeem script, or anything else
+     - Parameter script: byte array serialization of script
+     - Returns: Object with various possible interpretations of the script
+     - Throws:
+     */
+    func decodeScript(script: [UInt8]) async throws -> [String: Any]
 }
