@@ -192,6 +192,16 @@ public class Node {
         throw NodeError.Channels.unknown
     }
     
+    public func getFundingTransactionScriptPubKey(outputScript: [UInt8]) async -> String? {
+        guard let rpcInterface = rpcInterface,
+              let decodedScript = try? await rpcInterface.decodeScript(script: outputScript),
+              let addresses = decodedScript["addresses"] as? [String] else {
+            return nil
+        }
+        
+        return addresses.first
+    }
+    
     public func getFundingTransaction(fundingTxid: String) async -> [UInt8] {
         // FIXME: We can probably not force unwrap here if we can carefully intialize rpcInterface in the Node's initializer
         return try! await rpcInterface!.getTransaction(with: fundingTxid)

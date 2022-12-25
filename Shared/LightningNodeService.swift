@@ -57,7 +57,7 @@ class LightningNodeService {
         try await instance.connectPeer(pubKey: peer.peerPubKey, hostname: peer.connectionInformation.hostname, port: peer.connectionInformation.port)
     }
     
-    func requestChannelOpen(_ pubKeyHex: String, channelValue: UInt64, reserveAmount: UInt64) async throws -> Lightning.Node.ChannelOpenInfo {
+    func requestChannelOpen(_ pubKeyHex: String, channelValue: UInt64, reserveAmount: UInt64) async throws -> String {
         do {
             let channelOpenInfo = try await instance.requestChannelOpen(
                 pubKeyHex,
@@ -65,7 +65,11 @@ class LightningNodeService {
                 reserveAmount: reserveAmount
             )
             
-            return channelOpenInfo
+            if let scriptPubKey = await instance.getFundingTransactionScriptPubKey(outputScript: channelOpenInfo.fundingOutputScript) {
+                return scriptPubKey
+            } else {
+                throw ServiceError.cannotOpenChannel
+            }
         } catch {
             throw ServiceError.cannotOpenChannel
         }
