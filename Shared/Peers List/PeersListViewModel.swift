@@ -110,7 +110,7 @@ extension PeersListViewModel {
         PeerStore.load { [unowned self] result in
             switch result {
             case .success(let peers):
-                self.peersToShow = peers
+                self.peersToShow = Array(peers.values)
             case .failure:
                 self.peersToShow = []
             }

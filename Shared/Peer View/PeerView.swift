@@ -37,7 +37,9 @@ struct PeerView: View {
                     }
                 }
                 Section(header: Text("Pending Funding Scripts")) {
-                    Text("abcdef")
+                    ForEach(viewModel.peer.pendingFundingTransactionPubKeys, id: \.self) { pubKey in
+                        Text(pubKey)
+                    }
                 }
                 Section(header: Text("Active Channels")) {
                     Text("asbdvasd")

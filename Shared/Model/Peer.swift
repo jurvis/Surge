@@ -12,7 +12,7 @@ class Peer: ObservableObject, Codable, Equatable {
     let peerPubKey: String
     let name: String
     let connectionInformation: PeerConnectionInformation
-    private var pendingFundingTransactionPubKeys: [String] = []
+    var pendingFundingTransactionPubKeys: [String] = []
         
     internal init(id: UUID = UUID(), peerPubKey: String, name: String, connectionInformation: PeerConnectionInformation) {
         self.id = id

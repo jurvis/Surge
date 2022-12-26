@@ -51,7 +51,7 @@ class LightningNodeService {
             PeerStore.load { [unowned self] result in
                 switch result {
                 case .success(let peers):
-                    for peer in peers {
+                    for peer in peers.values {
                         Task {
                             try! await instance.connectPeer(pubKey: peer.peerPubKey, hostname: peer.connectionInformation.hostname, port: peer.connectionInformation.port)
                         }

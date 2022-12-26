@@ -26,6 +26,15 @@ class PeerRequestChannelViewModel: ObservableObject {
         do {
             let scriptPubKey = try await getFundingTransactionScriptPubkey(peer: peer)
             peer.addFundingTransactionPubkey(pubkey: scriptPubKey)
+            PeerStore.update(peer: peer) { result in
+                switch result {
+                case .success(_):
+                    print("Saved peer: \(peer.peerPubKey)")
+                case .failure(_):
+                    // TOODO: Handle saving new funding transaction pubkey error
+                    print("Error persisting new pub key")
+                }
+            }
             DispatchQueue.main.async { [weak self] in
                 self?.isViewActive.wrappedValue.toggle()
             }
