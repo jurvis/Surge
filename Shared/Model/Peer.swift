@@ -7,17 +7,37 @@
 
 import Foundation
 
-struct Peer: Codable, Equatable {
+class Peer: ObservableObject, Codable, Equatable {
     let id: UUID
     let peerPubKey: String
     let name: String
     let connectionInformation: PeerConnectionInformation
+    private var pendingFundingTransactionPubKeys: [String] = []
         
     internal init(id: UUID = UUID(), peerPubKey: String, name: String, connectionInformation: PeerConnectionInformation) {
         self.id = id
         self.peerPubKey = peerPubKey
         self.name = name
         self.connectionInformation = connectionInformation
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        do {
+            self.pendingFundingTransactionPubKeys = try container.decode([String].self, forKey: .pendingFundingTransactionPubKeys)
+       } catch {
+           self.pendingFundingTransactionPubKeys = []
+       }
+        
+        self.id = try container.decode(UUID.self, forKey: .id)
+        self.peerPubKey = try container.decode(String.self, forKey: .peerPubKey)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.connectionInformation = try container.decode(Peer.PeerConnectionInformation.self, forKey: .connectionInformation)
+    }
+    
+    func addFundingTransactionPubkey(pubkey: String) {
+        pendingFundingTransactionPubKeys.append(pubkey)
     }
 }
 

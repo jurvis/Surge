@@ -142,7 +142,9 @@ extension PeersListViewModel {
     }
     
     func showPeerScreen(peer: Peer) {
-        self.sheetToShow = .showPeer(peer)
+        DispatchQueue.main.async { [unowned self] in
+            self.sheetToShow = .showPeer(peer)
+        }
     }
     
     func showPeerView(peer: Peer) -> some View {

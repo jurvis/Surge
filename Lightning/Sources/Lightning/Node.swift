@@ -195,11 +195,11 @@ public class Node {
     public func getFundingTransactionScriptPubKey(outputScript: [UInt8]) async -> String? {
         guard let rpcInterface = rpcInterface,
               let decodedScript = try? await rpcInterface.decodeScript(script: outputScript),
-              let addresses = decodedScript["addresses"] as? [String] else {
+              let address = decodedScript["address"] as? String else {
             return nil
         }
         
-        return addresses.first
+        return address
     }
     
     public func getFundingTransaction(fundingTxid: String) async -> [UInt8] {

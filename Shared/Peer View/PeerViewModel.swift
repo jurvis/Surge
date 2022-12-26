@@ -12,6 +12,8 @@ class PeerViewModel: ObservableObject {
     @Published var peer: Peer
     @Published var activePeerNodeIds: [String] = []
     
+    @Published var isShowingEdit = false
+    
     var isPeerConnected: Bool {
         return activePeerNodeIds.contains(peer.peerPubKey)
     }
@@ -30,7 +32,6 @@ class PeerViewModel: ObservableObject {
             print("Error connecting to peer")
         }
     }
-    
     private func setup() {
         LightningNodeService.shared.activePeersPublisher
             .assign(to: \.activePeerNodeIds, on: self)

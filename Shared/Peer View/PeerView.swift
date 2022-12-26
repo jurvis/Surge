@@ -20,13 +20,20 @@ struct PeerView: View {
                     } else {
                         Button("Connect Peer") {
                             Task {
-                                await                             viewModel.connectPeer()
+                                await viewModel.connectPeer()
                             }
                         }
                     }
-
-                    Button("Request Channel Open") {
-                        print("")
+                    
+                    NavigationLink(
+                        destination: PeerRequestChannelView(
+                            viewModel: PeerRequestChannelViewModel(
+                                isViewActive: $viewModel.isShowingEdit
+                            )
+                        ),
+                        isActive: $viewModel.isShowingEdit
+                    ) {
+                        Text("Request Channel Open")
                     }
                 }
                 Section(header: Text("Pending Funding Scripts")) {
@@ -39,7 +46,7 @@ struct PeerView: View {
             .navigationTitle(viewModel.peer.name)
             .listStyle(.grouped)
         }
-        
+        .environmentObject(viewModel.peer)
     }
 }
 
