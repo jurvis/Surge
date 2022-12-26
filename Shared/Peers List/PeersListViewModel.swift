@@ -13,6 +13,22 @@ class PeersListViewModel: ObservableObject {
     @Published var sheetToShow: Sheet?
     @Published var peersToShow: [Peer] = []
     @Published var activePeerNodeIds: [String] = []
+    @Published private var focusedPeer: Peer?
+    
+    var showConfirmationDialog: Binding<Bool> {
+        Binding {
+            if let _ = self.focusedPeer {
+                return true
+            } else {
+                return false
+            }
+
+        } set: { shouldShowConfirmationDialog in
+            if !shouldShowConfirmationDialog {
+                self.focusedPeer = nil
+            }
+        }
+    }
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -20,9 +36,10 @@ class PeersListViewModel: ObservableObject {
         peersToShow.count == 0
     }
     
-    enum Sheet: Identifiable {
+    enum Sheet: Hashable, Identifiable {
         var id: Self { self }
         case addPeer
+        case showPeer(Peer)
     }
 
     internal init(peers: [Peer] = []) {
@@ -35,6 +52,26 @@ class PeersListViewModel: ObservableObject {
     }
     
     func connectPeer(_ peer: Peer) async {
+        do {
+            try await LightningNodeService.shared.connectPeer(peer)
+        } catch {
+            print("Error connecting to peer")
+        }
+    }
+    
+    func focusPeer(peer: Peer) {
+        focusedPeer = peer
+    }
+    
+    func dismissFocusedPeer() {
+        focusedPeer = nil
+    }
+
+    func connectFocusedPeer() async {
+        guard let peer = focusedPeer else {
+            return
+        }
+        
         do {
             try await LightningNodeService.shared.connectPeer(peer)
         } catch {
@@ -73,7 +110,7 @@ extension PeersListViewModel {
         PeerStore.load { [unowned self] result in
             switch result {
             case .success(let peers):
-                self.peersToShow = peers
+                self.peersToShow = Array(peers.values)
             case .failure:
                 self.peersToShow = []
             }
@@ -102,5 +139,15 @@ extension PeersListViewModel {
         }
         
         return AddPeerView(viewModel: addPeerViewModel)
+    }
+    
+    func showPeerScreen(peer: Peer) {
+        DispatchQueue.main.async { [unowned self] in
+            self.sheetToShow = .showPeer(peer)
+        }
+    }
+    
+    func showPeerView(peer: Peer) -> some View {
+        return PeerView(viewModel: PeerViewModel(peer: peer))
     }
 }

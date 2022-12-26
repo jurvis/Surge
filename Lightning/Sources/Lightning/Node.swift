@@ -192,6 +192,16 @@ public class Node {
         throw NodeError.Channels.unknown
     }
     
+    public func getFundingTransactionScriptPubKey(outputScript: [UInt8]) async -> String? {
+        guard let rpcInterface = rpcInterface,
+              let decodedScript = try? await rpcInterface.decodeScript(script: outputScript),
+              let address = decodedScript["address"] as? String else {
+            return nil
+        }
+        
+        return address
+    }
+    
     public func getFundingTransaction(fundingTxid: String) async -> [UInt8] {
         // FIXME: We can probably not force unwrap here if we can carefully intialize rpcInterface in the Node's initializer
         return try! await rpcInterface!.getTransaction(with: fundingTxid)
@@ -245,6 +255,7 @@ extension Node {
     public var connectedPeers: AnyPublisher<[String], Never> {
         Timer.publish(every: 5, on: .main, in: .default)
             .autoconnect()
+            .prepend(Date())
             .filter { [weak self] _ in self?.peerManager != nil }
             .flatMap { [weak self] _ -> AnyPublisher<[String], Never> in
                 let peers = self?.peerManager!.get_peer_node_ids().compactMap { $0.toHexString() }

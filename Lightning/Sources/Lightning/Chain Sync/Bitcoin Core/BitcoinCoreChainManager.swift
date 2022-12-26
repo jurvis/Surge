@@ -226,6 +226,19 @@ extension BitcoinCoreChainManager: RpcChainManager {
         let result = response["result"] as! String
         return result
     }
+    
+    /**
+     Decode an arbitary script. Can be an output script, a redeem script, or anything else
+     - Parameter script: byte array serialization of script
+     - Returns: Object with various possible interpretations of the script
+     - Throws:
+     */
+    public func decodeScript(script: [UInt8]) async throws -> [String: Any] {
+        let scriptHex = bytesToHexString(bytes: script)
+        let response = try await self.callRpcMethod(method: "decodescript", params: [scriptHex])
+        let result = response["result"] as! [String: Any]
+        return result
+    }
 }
 
 // MARK: RPC Calls
@@ -287,19 +300,6 @@ extension BitcoinCoreChainManager {
         return transaction
     }
     
-    /**
-     Decode an arbitary script. Can be an output script, a redeem script, or anything else
-     - Parameter script: byte array serialization of script
-     - Returns: Object with various possible interpretations of the script
-     - Throws:
-     */
-    public func decodeScript(script: [UInt8]) async throws -> [String: Any] {
-        let scriptHex = bytesToHexString(bytes: script)
-        let response = try await self.callRpcMethod(method: "decodescript", params: [scriptHex])
-        let result = response["result"] as! [String: Any]
-        return result
-    }
-
     /**
      Mine regtest blocks
      - Parameters:

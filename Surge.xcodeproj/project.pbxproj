@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		755617CE28C5C6EF00831531 /* Lightning in Frameworks */ = {isa = PBXBuildFile; productRef = 755617CD28C5C6EF00831531 /* Lightning */; };
+		7562ED60294E995D0055FB06 /* PeerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7562ED5F294E995D0055FB06 /* PeerView.swift */; };
+		7562ED622957B6D10055FB06 /* PeerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7562ED612957B6D10055FB06 /* PeerViewModel.swift */; };
+		7562ED632957B6D70055FB06 /* PeerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7562ED612957B6D10055FB06 /* PeerViewModel.swift */; };
+		7562ED642957B6D70055FB06 /* PeerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7562ED5F294E995D0055FB06 /* PeerView.swift */; };
 		7571CBE228C5BEAB00529718 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7571CBE128C5BEAB00529718 /* Tests_iOS.swift */; };
 		7571CBE428C5BEAB00529718 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7571CBE328C5BEAB00529718 /* Tests_iOSLaunchTests.swift */; };
 		7571CBEE28C5BEAB00529718 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7571CBED28C5BEAB00529718 /* Tests_macOS.swift */; };
@@ -23,6 +27,10 @@
 		75AA489B28C683EE0032A3DC /* LightningNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA489928C683EE0032A3DC /* LightningNodeService.swift */; };
 		75AA489E28C685A30032A3DC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 75AA489D28C685A30032A3DC /* CryptoSwift */; };
 		75AA48A028C685AA0032A3DC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 75AA489F28C685AA0032A3DC /* CryptoSwift */; };
+		75C1AD8D295924290086D37A /* PeerRequestChannelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1AD8C295924290086D37A /* PeerRequestChannelView.swift */; };
+		75C1AD8E295924290086D37A /* PeerRequestChannelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1AD8C295924290086D37A /* PeerRequestChannelView.swift */; };
+		75C1AD90295924C50086D37A /* PeerRequestChannelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1AD8F295924C50086D37A /* PeerRequestChannelViewModel.swift */; };
+		75C1AD91295924C50086D37A /* PeerRequestChannelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1AD8F295924C50086D37A /* PeerRequestChannelViewModel.swift */; };
 		75D85C0928CE80BA00461E80 /* PeersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C0828CE80BA00461E80 /* PeersListViewModel.swift */; };
 		75D85C0A28CE80BA00461E80 /* PeersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C0828CE80BA00461E80 /* PeersListViewModel.swift */; };
 		75D85C0C28CE811200461E80 /* PeerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D85C0B28CE811200461E80 /* PeerCellViewModel.swift */; };
@@ -65,6 +73,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7562ED5F294E995D0055FB06 /* PeerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerView.swift; sourceTree = "<group>"; };
+		7562ED612957B6D10055FB06 /* PeerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerViewModel.swift; sourceTree = "<group>"; };
 		7571CBC928C5BEAA00529718 /* SurgeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurgeApp.swift; sourceTree = "<group>"; };
 		7571CBCA28C5BEAA00529718 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7571CBCB28C5BEAB00529718 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -80,6 +90,8 @@
 		7571CC0A28C5C66300529718 /* Lightning */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Lightning; sourceTree = "<group>"; };
 		7571CC0B28C5C68700529718 /* Surge--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Surge--iOS--Info.plist"; sourceTree = "<group>"; };
 		75AA489928C683EE0032A3DC /* LightningNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightningNodeService.swift; sourceTree = "<group>"; };
+		75C1AD8C295924290086D37A /* PeerRequestChannelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerRequestChannelView.swift; sourceTree = "<group>"; };
+		75C1AD8F295924C50086D37A /* PeerRequestChannelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerRequestChannelViewModel.swift; sourceTree = "<group>"; };
 		75D85C0828CE80BA00461E80 /* PeersListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeersListViewModel.swift; sourceTree = "<group>"; };
 		75D85C0B28CE811200461E80 /* PeerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerCellViewModel.swift; sourceTree = "<group>"; };
 		75D85C0E28CE811C00461E80 /* PeerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerCell.swift; sourceTree = "<group>"; };
@@ -129,6 +141,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7562ED5E294E99450055FB06 /* Peer View */ = {
+			isa = PBXGroup;
+			children = (
+				7562ED5F294E995D0055FB06 /* PeerView.swift */,
+				7562ED612957B6D10055FB06 /* PeerViewModel.swift */,
+				75C1AD8C295924290086D37A /* PeerRequestChannelView.swift */,
+				75C1AD8F295924C50086D37A /* PeerRequestChannelViewModel.swift */,
+			);
+			path = "Peer View";
+			sourceTree = "<group>";
+		};
 		7571CBC328C5BEAA00529718 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +172,7 @@
 				75D85C1828CE927600461E80 /* Model */,
 				75D85C1728CE927100461E80 /* Stores */,
 				75D85C0728CE80A700461E80 /* Peers List */,
+				7562ED5E294E99450055FB06 /* Peer View */,
 				7571CBC928C5BEAA00529718 /* SurgeApp.swift */,
 				7571CBCA28C5BEAA00529718 /* HomeView.swift */,
 				7571CBCB28C5BEAB00529718 /* Assets.xcassets */,
@@ -416,9 +440,13 @@
 				75AA489A28C683EE0032A3DC /* LightningNodeService.swift in Sources */,
 				75D85C1228CE8B5300461E80 /* AddPeerView.swift in Sources */,
 				75D85C0F28CE811C00461E80 /* PeerCell.swift in Sources */,
+				75C1AD90295924C50086D37A /* PeerRequestChannelViewModel.swift in Sources */,
+				7562ED622957B6D10055FB06 /* PeerViewModel.swift in Sources */,
 				75D85C0928CE80BA00461E80 /* PeersListViewModel.swift in Sources */,
 				75D85C1528CE8F5700461E80 /* AddPeerViewModel.swift in Sources */,
 				75F3FBC928CD978E00FB6D61 /* HomeViewModel.swift in Sources */,
+				7562ED60294E995D0055FB06 /* PeerView.swift in Sources */,
+				75C1AD8D295924290086D37A /* PeerRequestChannelView.swift in Sources */,
 				75D85C2028CE974900461E80 /* PeerConnectionStatus.swift in Sources */,
 				75D85C1D28CE92C200461E80 /* PeerStore.swift in Sources */,
 				75D85C1A28CE927F00461E80 /* Peer.swift in Sources */,
@@ -431,15 +459,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7562ED642957B6D70055FB06 /* PeerView.swift in Sources */,
 				75F3FBC728CD95A000FB6D61 /* TransactionListView.swift in Sources */,
 				7571CBF428C5BEAB00529718 /* HomeView.swift in Sources */,
 				75D85C0D28CE811200461E80 /* PeerCellViewModel.swift in Sources */,
 				75AA489B28C683EE0032A3DC /* LightningNodeService.swift in Sources */,
+				7562ED632957B6D70055FB06 /* PeerViewModel.swift in Sources */,
+				75C1AD91295924C50086D37A /* PeerRequestChannelViewModel.swift in Sources */,
 				75D85C1328CE8B5300461E80 /* AddPeerView.swift in Sources */,
 				75D85C1028CE811C00461E80 /* PeerCell.swift in Sources */,
 				75D85C0A28CE80BA00461E80 /* PeersListViewModel.swift in Sources */,
 				75D85C1628CE8F5700461E80 /* AddPeerViewModel.swift in Sources */,
 				75F3FBCA28CD978E00FB6D61 /* HomeViewModel.swift in Sources */,
+				75C1AD8E295924290086D37A /* PeerRequestChannelView.swift in Sources */,
 				75D85C2128CE974900461E80 /* PeerConnectionStatus.swift in Sources */,
 				75D85C1E28CE92C200461E80 /* PeerStore.swift in Sources */,
 				75D85C1B28CE927F00461E80 /* Peer.swift in Sources */,

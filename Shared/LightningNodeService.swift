@@ -48,6 +48,18 @@ class LightningNodeService {
         
         do {
             try await instance.start()
+            PeerStore.load { [unowned self] result in
+                switch result {
+                case .success(let peers):
+                    for peer in peers.values {
+                        Task {
+                            try! await instance.connectPeer(pubKey: peer.peerPubKey, hostname: peer.connectionInformation.hostname, port: peer.connectionInformation.port)
+                        }
+                    }
+                case .failure:
+                    print("Error loading peers from disk.")
+                }
+            }
         } catch {
             throw error
         }
@@ -55,6 +67,24 @@ class LightningNodeService {
     
     func connectPeer(_ peer: Peer) async throws {
         try await instance.connectPeer(pubKey: peer.peerPubKey, hostname: peer.connectionInformation.hostname, port: peer.connectionInformation.port)
+    }
+    
+    func requestChannelOpen(_ pubKeyHex: String, channelValue: UInt64, reserveAmount: UInt64) async throws -> String {
+        do {
+            let channelOpenInfo = try await instance.requestChannelOpen(
+                pubKeyHex,
+                channelValue: channelValue,
+                reserveAmount: reserveAmount
+            )
+            
+            if let scriptPubKey = await instance.getFundingTransactionScriptPubKey(outputScript: channelOpenInfo.fundingOutputScript) {
+                return scriptPubKey
+            } else {
+                throw ServiceError.cannotOpenChannel
+            }
+        } catch {
+            throw ServiceError.cannotOpenChannel
+        }
     }
 }
 
